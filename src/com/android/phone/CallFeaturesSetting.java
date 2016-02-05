@@ -60,7 +60,6 @@ import android.preference.PreferenceScreen;
 import android.provider.ContactsContract.CommonDataKinds;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.telephony.MSimTelephonyManager;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.util.Log;
@@ -2694,15 +2693,10 @@ public class CallFeaturesSetting extends PreferenceActivity
      * This is useful for implementing "HomeAsUp" capability for second-level Settings.
      */
     public static void goUpToTopLevelSetting(Activity activity) {
-        if (!MSimTelephonyManager.getDefault().isMultiSimEnabled()) {
-            // HACK: This doesn't work on multi-SIM (and we have multiple)
-            //       hierachy (MSimCallFeaturesSetting and MSimCallFeatureSubSetting)
-            //       so let just allow this to act like "back" button
-            Intent intent = new Intent(activity, CallFeaturesSetting.class);
-            intent.setAction(Intent.ACTION_MAIN);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            activity.startActivity(intent);
-        }
+        Intent intent = new Intent(activity, CallFeaturesSetting.class);
+        intent.setAction(Intent.ACTION_MAIN);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
         activity.finish();
     }
 
